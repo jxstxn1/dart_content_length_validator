@@ -16,8 +16,7 @@ Middleware maxContentLengthValidator({
 }) {
   return (innerHandler) {
     return (request) {
-      final contentLength =
-          int.tryParse(request.headers['content-length'] ?? '') ?? 0;
+      final contentLength = request.contentLength ?? 0;
       if (contentLength > maxContentLength) {
         return Response(errorStatus, body: errorMessage);
       }
