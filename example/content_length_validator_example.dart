@@ -6,7 +6,12 @@ import 'package:shelf/shelf_io.dart' as shelf_io;
 
 void main() async {
   final handler = const Pipeline()
-      .addMiddleware(maxContentLengthValidator())
+      .addMiddleware(
+        maxContentLengthValidator(
+          maxContentLength: 999,
+          errorResponse: Response(400, body: 'Only send payloads < 1000 bytes'),
+        ),
+      )
       .addMiddleware(logRequests())
       .addHandler(_echoRequest);
 
@@ -18,5 +23,4 @@ void main() async {
   print('Serving at http://${server.address.host}:${server.port}');
 }
 
-Response _echoRequest(Request request) =>
-    Response.ok('Request for "${request.url}"');
+Response _echoRequest(Request request) => Response.ok('Request for "${request.url}"');
