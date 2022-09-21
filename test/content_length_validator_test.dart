@@ -45,7 +45,7 @@ void main() {
           .addMiddleware(
             maxContentLengthValidator(
               maxContentLength: 999,
-              errorResponse: Response(418),
+              errorResponse: Response(418, body: 'Invalid payload; too big'),
             ),
           )
           .addHandler(syncHandler);
