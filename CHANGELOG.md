@@ -1,3 +1,11 @@
+## 1.1.0
+
+- Add CI to run tests and linting
+- Moved everything to `content_length_validator.dart`
+- Update Example & Readme
+- **BREAKING CHANGE**
+  - `maxContentLength` is now required
+  - Combined `errorStatus`and `errorMessage` to a single `Response`
 
 ## 1.0.1
 
