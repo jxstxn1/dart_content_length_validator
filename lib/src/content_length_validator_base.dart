@@ -10,15 +10,18 @@ import 'package:shelf/shelf.dart';
 ///
 /// [errorMessage] is the message which will be sent to the client if the content is too large.
 Middleware maxContentLengthValidator({
-  int maxContentLength = 999,
-  int errorStatus = 400,
-  String errorMessage = 'Invalid payload; too big',
+  required int maxContentLength,
+  Response? errorResponse,
 }) {
   return (innerHandler) {
     return (request) {
       final contentLength = request.contentLength ?? 0;
       if (contentLength > maxContentLength) {
-        return Response(errorStatus, body: errorMessage);
+        return errorResponse ??
+            Response(
+              400,
+              body: 'Invalid payload; too big',
+            );
       }
       return innerHandler(request);
     };
