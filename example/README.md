@@ -1,5 +1,43 @@
-// ignore_for_file: avoid_print
+# Example
 
+## Add the Middleware your Shelf API
+
+by simply adding:
+
+ ```dart
+ .addMiddleware(
+    maxContentLengthValidator(
+      maxContentLength: YOUR_CONTENT_LENGTH,
+    ),
+  ),
+ ```
+
+you can define a custom error Response by setting the `errorResponse` parameter:
+
+```dart
+.addMiddleware(
+    maxContentLengthValidator(
+      maxContentLength: YOUR_CONTENT_LENGTH,
+      errorResponse: Response(
+        413,
+        body: 'Your body is too long',
+        ),
+      ),
+    ),
+  ),
+```
+
+you can also add use the Middleware in DartFrog by doing the following:
+
+```dart
+Handler maxContentLengthValidator(Handler handler) {
+    return handler.use(fromShelfMiddleware(maxContentLengthValidator()));
+}
+```
+
+### Full example
+
+```dart
 import 'package:content_length_validator/content_length_validator.dart';
 import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as shelf_io;
@@ -24,3 +62,4 @@ void main() async {
 }
 
 Response _echoRequest(Request request) => Response.ok('Request for "${request.url}"');
+```
