@@ -16,8 +16,14 @@ dart pub add content_length_validator
 ```dart
 import 'package:content_length_validator/content_length_validator.dart';
 
-  var handler =
-      const Pipeline().addMiddleware(maxContentLengthValidator()).addMiddleware(logRequests()).addHandler(_echoRequest);
+  var handler = const Pipeline()
+      .addMiddleware(
+        maxContentLengthValidator(
+          maxContentLength: YOUR_CONTENT_LENGTH,
+        ),
+      )
+      .addMiddleware(logRequests())
+      .addHandler(_echoRequest);
 ```
 
 ### As dart_frog middleware
@@ -26,6 +32,21 @@ import 'package:content_length_validator/content_length_validator.dart';
 import 'package:content_length_validator/content_length_validator.dart';
 
 Handler maxContentLengthValidator(Handler handler) {
-    return handler.use(fromShelfMiddleware(maxContentLengthValidator()));
+    return handler.use(fromShelfMiddleware(maxContentLengthValidator(maxContentLength: YOUR_CONTENT_LENGTH,)));
 }
+```
+
+### Defining custom error response
+
+```dart
+.addMiddleware(
+    maxContentLengthValidator(
+      maxContentLength: YOUR_CONTENT_LENGTH,
+      errorResponse: Response(
+        413,
+        body: 'Your body is too long',
+        ),
+      ),
+    ),
+  ),
 ```
