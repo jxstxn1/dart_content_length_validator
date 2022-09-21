@@ -9,7 +9,7 @@ void main() {
     group('Default values: ', () {
       test('Should return status code 200 and "Hello from /"', () async {
         final handler = const Pipeline()
-            .addMiddleware(maxContentLengthValidator())
+            .addMiddleware(maxContentLengthValidator(maxContentLength: 999))
             .addHandler(syncHandler);
         final response = await makePostRequest(handler);
         expect(response.statusCode, 200);
@@ -17,10 +17,10 @@ void main() {
       });
 
       test(
-          'Should return status code 200 and "Hello from /" if content length is < 999',
+          'Should return status code 200 and "Hello from /" if content length is < 1000',
           () async {
         final handler = const Pipeline()
-            .addMiddleware(maxContentLengthValidator())
+            .addMiddleware(maxContentLengthValidator(maxContentLength: 1000))
             .addHandler(syncHandler);
         final response =
             await makePostRequest(handler, headers: {'content-length': '999'});
@@ -31,7 +31,7 @@ void main() {
       test('Should return status code 400 and "Invalid payload; too big',
           () async {
         final handler = const Pipeline()
-            .addMiddleware(maxContentLengthValidator())
+            .addMiddleware(maxContentLengthValidator(maxContentLength: 999))
             .addHandler(syncHandler);
         final response =
             await makePostRequest(handler, headers: {'content-length': '1000'});
@@ -42,7 +42,12 @@ void main() {
     test('Should return custom set error code 418 if the payload is to big',
         () async {
       final handler = const Pipeline()
-          .addMiddleware(maxContentLengthValidator(errorStatus: 418))
+          .addMiddleware(
+            maxContentLengthValidator(
+              maxContentLength: 999,
+              errorResponse: Response(418),
+            ),
+          )
           .addHandler(syncHandler);
       final response =
           await makePostRequest(handler, headers: {'content-length': '1000'});
@@ -61,7 +66,12 @@ void main() {
     test('Should return a custom response if the content-length is too big',
         () async {
       final handler = const Pipeline()
-          .addMiddleware(maxContentLengthValidator(errorMessage: 'Hello World'))
+          .addMiddleware(
+            maxContentLengthValidator(
+              maxContentLength: 999,
+              errorResponse: Response(400, body: 'Hello World'),
+            ),
+          )
           .addHandler(syncHandler);
       final response =
           await makePostRequest(handler, headers: {'content-length': '1000'});
