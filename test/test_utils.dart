@@ -23,16 +23,19 @@ Future<Response> makePostRequest(
   Handler handler, {
   Map<String, Object>? headers,
   Object? body,
-}) =>
-    Future.sync(
-      () => handler(
+}) {
+  return Future.sync(
+    () {
+      return handler(
         Request(
           'POST',
           localhostUri,
           headers: headers,
           body: body,
         ),
-      ),
-    );
+      );
+    },
+  );
+}
 
 final localhostUri = Uri.parse('http://localhost/');
