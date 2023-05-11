@@ -1,6 +1,6 @@
 name: content_length_validator
 description: Middleware for Shelf and Dart Frog to block too large requests.
-version: 1.1.0
+version: 1.1.1
 homepage: https://jxstxn.de
 repository: https://github.com/jxstxn1/dart_content_length_validator
 issue_tracker: https://github.com/jxstxn1/dart_content_length_validator/issues

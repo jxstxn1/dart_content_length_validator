@@ -1,3 +1,8 @@
+## 1.1.1
+
+- add issue tracker
+- add topics
+
 ## 1.1.0
 
 - Add CI to run tests and linting
