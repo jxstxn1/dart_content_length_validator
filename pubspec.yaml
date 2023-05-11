@@ -5,6 +5,16 @@ homepage: https://jxstxn.de
 repository: https://github.com/jxstxn1/dart_content_length_validator
 issue_tracker: https://github.com/jxstxn1/dart_content_length_validator/issues
 
+topics:
+  - shelf
+  - security
+  - dart
+  - dart_frog
+  - dartlang
+  - middleware
+  - content_length_validator
+  - content_length
+
 environment:
   sdk: '>=2.18.0 <3.0.0'
 
