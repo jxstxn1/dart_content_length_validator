@@ -1,3 +1,7 @@
+## 1.2.1
+
+- replace `_` in topics with `-`
+
 ## 1.2.0
 
 - Add support for dart >= 3.0.0
