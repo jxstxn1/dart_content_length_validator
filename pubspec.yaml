@@ -8,12 +8,9 @@ issue_tracker: https://github.com/jxstxn1/dart_content_length_validator/issues
 topics:
   - shelf
   - security
-  - dart
-  - dart_frog
-  - dartlang
+  - dart-frog
   - middleware
-  - content_length_validator
-  - content_length
+  - content-length
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
